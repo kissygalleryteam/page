@@ -1,8 +1,8 @@
 ## page(分页组件)
 
-* 版本：2.0.0
-* 教程：[http://kg.kissyui.com/page/2.0.0/guide/index.html](http://kg.kissyui.com/page/2.0.0/guide/index.html)
-* demo：[http://kg.kissyui.com/page/2.0.0/demo/index.html](http://kg.kissyui.com/page/2.0.0/demo/index.html)
+* 版本：2.0.4
+* 教程：[http://kg.kissyui.com/page/2.0.4/guide/index.html](http://kg.kissyui.com/page/2.0.4/guide/index.html)
+* demo：[http://kg.kissyui.com/page/2.0.4/demo/index.html](http://kg.kissyui.com/page/2.0.4/demo/index.html)
 
 ### 组件介绍
 * 根据已知总页数，生成带页码的分页
@@ -18,7 +18,7 @@
 
 		<div id="page1"></div>
 		<script>
-	        KISSY.use('kg/page/2.0.0/index', function (S, page) {
+	        KISSY.use('kg/page/2.0.4/index', function (S, page) {
 	            var pageObj = new page({
 	            	container: "#page1",
 	            	total_page: 11,
@@ -39,7 +39,7 @@
 
 	 	<div id="page2"></div>
 	 	<script type="text/javascript">
-		    KISSY.use('kg/page/2.0.0/index', function (S, page) {
+		    KISSY.use('kg/page/2.0.4/index', function (S, page) {
 		        var pageObj = new page({
 	           	    container: "#page2",
 	           	    total_page: 20,
@@ -56,7 +56,7 @@
 
 	 	<div id="page3"></div>
 	 	<script type="text/javascript">
-	 		KISSY.use('kg/page/2.0.0/index', function (S, page) {
+	 		KISSY.use('kg/page/2.0.4/index', function (S, page) {
 	 			new page({
 	 				container: "#page3",
 	 				total_page: 0,
@@ -71,7 +71,7 @@
 
 	 	<div id="page4"></div>
 	 	<script type="text/javascript">
-	 		KISSY.use('kg/page/2.0.0/index', function (S, page) {
+	 		KISSY.use('kg/page/2.0.4/index', function (S, page) {
 	 		    var pageObj = new page({
 	 		        container: "#page4",
 	 		        total_page: 0,
