@@ -1,7 +1,7 @@
 /*
 combined files : 
 
-kg/page/2.0.0/index
+kissy-kg/page/2.0.0/index
 
 */
 /**
@@ -9,15 +9,16 @@ kg/page/2.0.0/index
  * @author lanmeng.bhy<lanmeng.bhy@taobao.com>
  * @module page
  **/
-KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
+KISSY.add('kissy-kg/page/2.0.0/index',function (S, Node, RichBase, Event, Uri) {
 
     var isString = S.isString;
     var sub = S.substitute;
     var one = S.one;
+    var query = Uri.Query;
     
     var PRE_CLASS = 'page-';
     var FIRST_PAGE_CLASS = PRE_CLASS + 'first';
-    var PREVIEW_PAGE_CLASS = PRE_CLASS + 'preview';
+    var PREVIOUS_PAGE_CLASS = PRE_CLASS + 'previous';
     var NEXT_PAGE_CLASS = PRE_CLASS + 'next';
     var LAST_PAGE_CLASS = PRE_CLASS + 'last';
     var NUM_PAGE_CLASS = PRE_CLASS + 'num';
@@ -26,22 +27,11 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
     var TOTAL_CLASS = PRE_CLASS + "total";
     var CURRENT_CLASS = PRE_CLASS + "current";
     var DOT_CLASS = PRE_CLASS + "dot";
-        
-    /**
-     * 
-     * @class Page
-     * @constructor
-     * @extends Base
-     */
-    function page(comConfig) {
-        var self = this;
-        //调用父类构造函数
-        page.superclass.constructor.call(self, comConfig);
-        
-        self._init.apply(self, arguments);
-    }
     
-    S.extend(page, Base, {
+    var NUMBER_REG = /^[1-9]+[0-9]*$/;
+        
+        
+    var page = RichBase.extend({
     
         /**
          * 初始化分页，bind事件
@@ -49,12 +39,18 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
          * @method _init
          * @private
          */
-        _init: function(){
+        initializer: function(){
             var self = this;
             self.container = self.get("container");
            
 
             if(self.container){
+               
+               //判断是否支持hash
+               if(self.get('support_hash')){
+                   self._getHash();
+                   self._setHash();
+               }
                
                 //获取不可变的属性
                 self.renderPage();
@@ -82,8 +78,8 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
                     case FIRST_PAGE_CLASS:
                         self.goFirstPage();
                         break;
-                    case PREVIEW_PAGE_CLASS:
-                        self.goPreviewPage();
+                    case PREVIOUS_PAGE_CLASS:
+                        self.goPreviousPage();
                         break;
                     case NEXT_PAGE_CLASS:
                         self.goNextPage();
@@ -112,8 +108,10 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
                 
                  
             });
+            
+            self.get('support_hash') && self.on('page:skip', self._setHash, self);
         },
-
+         
         /**
          * 分页显示
          * 根据配置显示上一页，下一页等信息
@@ -135,7 +133,7 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
             self.get("first_show") && self._getOnePageHtml(self.get("first_text"),  hasFirstPage,  FIRST_PAGE_CLASS);
             
             //上一页
-            self.get("preview_show") && self._getOnePageHtml(self.get("preview_text"),  (currentPage > 1), PREVIEW_PAGE_CLASS);
+            self.get("previous_show") && self._getOnePageHtml(self.get("previous_next"),  (currentPage > 1), PREVIOUS_PAGE_CLASS);
             
 
             //只有上一页下一页的时候没有页数，不显示分页信息
@@ -200,14 +198,14 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
 
         /**
          * 重新设置总页数
-         * @method changetTotalPage
+         * @method changeTotalPage
          * @param totalPage {Int} 总页数 
          * @public
          */
-        changetTotalPage: function(totalPage){
+        changeTotalPage: function(totalPage){
             var self = this;
             self.set("total_page", totalPage);
-             //t.renderPage();
+            self.renderPage();
         },
          
         /**
@@ -218,16 +216,16 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
          */
         setCurrentPage: function(currentPage){
             var self = this;
-            self.set("currentPage", currentPage);
+            self.set("current_page", currentPage);
             self.renderPage();
         },
         
         /**
          * 是否有上一页，主要给没有分页数字，只有上一页下一页使用
-         * @method disablePreviewPage
+         * @method disablePreviousPage
          * @public
          */
-        disablePreviewPage: function(){
+        disablePreviousPage: function(){
             var self = this;
             self.set("total_page", self.currentPage);
             self.renderPage();
@@ -259,10 +257,10 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
         
         /**
          * 返回总页数
-         * @method getToatalPage
+         * @method getTotalPage
          * @public
          */
-        getToatalPage: function(){
+        getTotalPage: function(){
             return this.get("total_page");
         },
 
@@ -297,19 +295,19 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
 
         /**
          * 上一页，当前页必须大于1才有上一页
-         * @method goPreviewPage
+         * @method goPreviousPage
          * @param node {YUI NODE} 触发分页的节点
          * @public
          */
-        goPreviewPage: function(){
+        goPreviousPage: function(){
             var self = this;
             var currentPage = self.get("current_page");
-            var target = one('.' + PREVIEW_PAGE_CLASS);
+            var target = one('.' + PREVIOUS_PAGE_CLASS);
             
             if(currentPage > 1 || !totalPage){
                 self.skip(--currentPage, target);
             }
-            self.fire("page:previewPage", {target: target});
+            self.fire("page:previousPage", {target: target});
             
         },
         
@@ -340,11 +338,16 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
          */
         skip: function(pageNum, node){
            var self = this;
-           if(pageNum){//判断是大于1的数字
+           
+           self.fire("before:skip", {pageNum: pageNum, target: node});
+           if(pageNum > 0 && pageNum <= self.get("total_page")){//判断是大于1的数字
                 self.set("current_page", parseInt(pageNum));
+                self.renderPage();
+                self.fire("after:skip", {pageNum: pageNum, target: node});
             }
+            
             self.fire("page:skip", {pageNum: pageNum, target: node});
-            self.renderPage();
+            self.fire("page:skipError", {pageNum: pageNum, target: node});
         },
   
         //获取连续页的开始和结束
@@ -396,7 +399,30 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
             html.push("<input type='button' class='"+ BTN_CLASS + "' value='"+ self.get("skip_btn") +"' >");
 
             self._getOnePageHtml(html.join(''),  false,  TOTAL_CLASS);
+        },
+        
+        //设置hash值
+        _setHash: function(){
+            var self = this;
+            var hash = window.location.hash;
+            var hashObj = new query(hash.slice(1));
+            
+            hashObj.set(self.get('hash_name'), self.get('current_page'));
+            window.location.hash = hashObj.toString();
+
+        },
+        
+        //获取hash值
+        _getHash: function(){
+            var self = this;
+            var hash = window.location.hash.slice(1);
+            var currentPage = new query(hash).get(self.get('hash_name'));
+            
+            if(currentPage && NUMBER_REG.test(currentPage)){
+               self.set('current_page', currentPage);
+            }
         }
+        
 
     }, {
          ATTRS :  {
@@ -494,7 +520,7 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
 	                value: "末页"
 	            },
 	
-	            preview_text: {
+	            previous_next: {
 	                value:  "上一页"  //文案
 	            },
 	
@@ -502,19 +528,27 @@ KISSY.add('kg/page/2.0.0/index',function (S, Node,Base, Event) {
 	                value: "下一页"  //文案
 	            },
 	
-	            preview_show: {
+	            previous_show: {
 	                value: false  //是否现实上一页
 	            },
 	
 	            next_show: {
 	                value: false  //是否现实下一页
+	            },
+	            
+	            support_hash: {
+	                value: false
+	            },
+	            
+	            hash_name: {
+	                value: 'page'
 	            }
 	        }
      });
      
     return page;
     
-}, {requires:['node', 'base', 'event']});
+}, {requires:['node', 'rich-base', 'event', 'uri']});
 
 
 
