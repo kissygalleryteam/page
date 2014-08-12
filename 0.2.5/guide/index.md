@@ -1,8 +1,8 @@
 ## page(分页组件)
 
-* 版本：2.0.5
-* 教程：[http://kg.kissyui.com/page/2.0.5/guide/index.html](http://kg.kissyui.com/page/2.0.5/guide/index.html)
-* demo：[http://kg.kissyui.com/page/2.0.5/demo/index.html](http://kg.kissyui.com/page/2.0.5/demo/index.html)
+* 版本：2.0.4
+* 教程：[http://kg.kissyui.com/page/2.0.4/guide/index.html](http://kg.kissyui.com/page/2.0.4/guide/index.html)
+* demo：[http://kg.kissyui.com/page/2.0.4/demo/index.html](http://kg.kissyui.com/page/2.0.4/demo/index.html)
 
 ### 组件介绍
 * 根据已知总页数，生成带页码的分页
@@ -18,7 +18,7 @@
 
 		<div id="page1"></div>
 		<script>
-	        KISSY.use('kg/page/2.0.5/index', function (S, page) {
+	        KISSY.use('kg/page/2.0.4/index', function (S, page) {
 	            var pageObj = new page({
 	            	container: "#page1",
 	            	total_page: 11,
@@ -39,7 +39,7 @@
 
 	 	<div id="page2"></div>
 	 	<script type="text/javascript">
-		    KISSY.use('kg/page/2.0.5/index', function (S, page) {
+		    KISSY.use('kg/page/2.0.4/index', function (S, page) {
 		        var pageObj = new page({
 	           	    container: "#page2",
 	           	    total_page: 20,
@@ -56,7 +56,7 @@
 
 	 	<div id="page3"></div>
 	 	<script type="text/javascript">
-	 		KISSY.use('kg/page/2.0.5/index', function (S, page) {
+	 		KISSY.use('kg/page/2.0.4/index', function (S, page) {
 	 			new page({
 	 				container: "#page3",
 	 				total_page: 0,
@@ -71,7 +71,7 @@
 
 	 	<div id="page4"></div>
 	 	<script type="text/javascript">
-	 		KISSY.use('kg/page/2.0.5/index', function (S, page) {
+	 		KISSY.use('kg/page/2.0.4/index', function (S, page) {
 	 		    var pageObj = new page({
 	 		        container: "#page4",
 	 		        total_page: 0,
@@ -121,8 +121,8 @@
 |event|param|description|
 |:----|:----|:----------|
 |page:error| e.target：触发事件的节点 | 点击分页按钮出错 |
-|page:firstPage| e.target：触发事件的节点[在第一页page:skip和page:firstPage会同时调用] | 去第一页 |
-|page:lastPage| e.target：触发事件的节点[在最后一页page:skip和page:lastPage] | 去最后一页 |
+|page:firstPage| e.target：触发事件的节点 | 去第一页 |
+|page:lastPage| e.target：触发事件的节点 | 去最后一页 |
 |page:previewPage| e.target：触发事件的节点| 上一页 |
 |page:nextPage| e.target：触发事件的节点| 下一页 |
 |page:skip|e.target：触发事件的节点； e.pageNum: 跳转的页数| 跳转到第几页，跳转成功以后触发 |
