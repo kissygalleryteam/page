@@ -1,10 +1,5 @@
 ## page(分页组件)
 
-* 版本：2.0.4
-* 教程：[http://kg.kissyui.com/page/2.0.4/guide/index.html](http://kg.kissyui.com/page/2.0.4/guide/index.html)
-* demo：[http://kg.kissyui.com/page/2.0.4/demo/index.html](http://kg.kissyui.com/page/2.0.4/demo/index.html)
-
-### 组件介绍
 * 根据已知总页数，生成带页码的分页
 * 未知总页数的情况下，可以显示‘上一页’、‘下一页’
 * 支持用户自定义跳转页码
