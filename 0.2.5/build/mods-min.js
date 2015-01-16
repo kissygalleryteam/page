@@ -1,2 +1,2 @@
-/*!build time : 2014-08-07 5:02:43 PM*/
-KISSY.config("modules",{"kg/page/2.0.4/index":{requires:["node","rich-base","event","uri"]}});
+/*!build time : 2015-01-16 2:07:51 PM*/
+KISSY.config("modules",{"kg/page/2.0.5/index":{requires:["node","rich-base","event","uri"]}});
