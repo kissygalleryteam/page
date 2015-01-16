@@ -1,7 +1,7 @@
 /*
 combined files : 
 
-kg/page/2.0.4/index
+kg/page/2.0.5/index
 
 */
 /**
@@ -9,7 +9,7 @@ kg/page/2.0.4/index
  * @author lanmeng.bhy<lanmeng.bhy@taobao.com>
  * @module page
  **/
-KISSY.add('kg/page/2.0.4/index',function (S, Node, RichBase, Event, Uri) {
+KISSY.add('kg/page/2.0.5/index',function (S, Node, RichBase, Event, Uri) {
 
     var isString = S.isString;
     var sub = S.substitute;
@@ -263,6 +263,13 @@ KISSY.add('kg/page/2.0.4/index',function (S, Node, RichBase, Event, Uri) {
             return this.get("total_page");
         },
 
+        //清楚事件绑定
+        destory: function(){
+            var self = this;
+            Event.undelegate(self.container, 'click', 'a');
+            Event.undelegate(self.container, "click", "." + BTN_CLASS);
+        },
+
         
         /**
          * 跳转到第一页
@@ -337,16 +344,17 @@ KISSY.add('kg/page/2.0.4/index',function (S, Node, RichBase, Event, Uri) {
          */
         skip: function(pageNum, node){
            var self = this;
+           var pageNum = Number(pageNum);
            
            self.fire("before:skip", {pageNum: pageNum, target: node});
            if(pageNum > 0 && pageNum <= self.get("total_page")){//判断是大于1的数字
-                self.set("current_page", parseInt(pageNum));
+                self.set("current_page", pageNum);
                 self.renderPage();
                 self.fire("after:skip", {pageNum: pageNum, target: node});
             }
             
             self.fire("page:skip", {pageNum: pageNum, target: node});
-            self.fire("page:skipError", {pageNum: pageNum, target: node});
+           // self.fire("page:skipError", {pageNum: pageNum, target: node});
         },
   
         //获取连续页的开始和结束
