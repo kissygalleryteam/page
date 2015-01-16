@@ -25,11 +25,26 @@
           <p class="author-wrapper"><span>组件有问题？旺旺联系作者：</span><a href="https://github.com/linwen3" target="_blank" data-name="兰梦" class="author"><img src="https://avatars.githubusercontent.com/u/620364?v=3&amp;s=60" alt="兰梦"></a><span class="author-name">兰梦</span>
           </p>
           <div class="common-link"><a href="../demo/index.html" target="_blank" class="demo">示例</a><a href="https://github.com/kissygalleryteam/page" target="_blank" class="source">源码</a></div>
-          <p class="com-info"><span class="info-label">View</span><span data-com="page" class="J_View">982</span></p>
+          <p class="com-info"><span class="info-label">View</span><span data-com="page" class="J_View">1018</span></p>
           <p class="com-info"><span class="info-label">所属分类</span><a href="http://kpm.taobao.net/list/UI">UI</a><span class="info-label tag-label">组件标签</span><a href="http://kpm.taobao.net/list/tag?tag=1.0">1.0</a>
           </p>
           <p class="com-info"><span class="info-label">kissy版本</span><span>1.4.X</span>
           </p><h2 id="page-">page(分页组件)</h2>
+<h1 id="-head">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h1>
+<ul>
+<li>版本：2.0.5</li>
+<li>教程：<a href="http://kg.kissyui.com/page/2.0.5/guide/index.html">http://kg.kissyui.com/page/2.0.5/guide/index.html</a></li>
+<li>demo：<a href="http://kg.kissyui.com/page/2.0.5/demo/index.html">http://kg.kissyui.com/page/2.0.5/demo/index.html</a></li>
+</ul>
+<h3 id="-">组件介绍</h3>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>67170673b766fc7f83f5006a1e2dc6bfd24bd5a7</p>
 <ul>
 <li>根据已知总页数，生成带页码的分页</li>
 <li>未知总页数的情况下，可以显示‘上一页’、‘下一页’</li>
@@ -38,12 +53,19 @@
 <li>支持设置当前页左右显示多少页，例如当前页是5，左右个显示2也，则出现的效果为 3 4 5 6 7连续页面</li>
 <li>可以支持设置边缘显示多少页，例如当前页是8，共20页， 左右边缘个显示2页，则效果为 1 2 ... 7 8 9 ... 19 20</li>
 </ul>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <h3 id="-">初始化</h3>
 <ul>
 <li><p>完整版分页</p>
 <pre><code>  &lt;div id=&quot;page1&quot;&gt;&lt;/div&gt;
   &lt;script&gt;
-      KISSY.use(&#39;kg/page/2.0.4/index&#39;, function (S, page) {
+      KISSY.use(&#39;kg/page/2.0.5/index&#39;, function (S, page) {
           var pageObj = new page({
               container: &quot;#page1&quot;,
               total_page: 11,
@@ -63,7 +85,7 @@
 <li><p>淘宝版分页（显示为：上一页 4 5 6 ... 下一页）</p>
 <pre><code>   &lt;div id=&quot;page2&quot;&gt;&lt;/div&gt;
    &lt;script type=&quot;text/javascript&quot;&gt;
-      KISSY.use(&#39;kg/page/2.0.4/index&#39;, function (S, page) {
+      KISSY.use(&#39;kg/page/2.0.5/index&#39;, function (S, page) {
           var pageObj = new page({
                  container: &quot;#page2&quot;,
                  total_page: 20,
@@ -79,7 +101,7 @@
 <li><p>仅有上一页、下一页</p>
 <pre><code>   &lt;div id=&quot;page3&quot;&gt;&lt;/div&gt;
    &lt;script type=&quot;text/javascript&quot;&gt;
-       KISSY.use(&#39;kg/page/2.0.4/index&#39;, function (S, page) {
+       KISSY.use(&#39;kg/page/2.0.5/index&#39;, function (S, page) {
            new page({
                container: &quot;#page3&quot;,
                total_page: 0,
@@ -93,7 +115,7 @@
 <li><p>添加自定义事件</p>
 <pre><code>   &lt;div id=&quot;page4&quot;&gt;&lt;/div&gt;
    &lt;script type=&quot;text/javascript&quot;&gt;
-       KISSY.use(&#39;kg/page/2.0.4/index&#39;, function (S, page) {
+       KISSY.use(&#39;kg/page/2.0.5/index&#39;, function (S, page) {
            var pageObj = new page({
                container: &quot;#page4&quot;,
                total_page: 0,
@@ -241,12 +263,12 @@
 </tr>
 <tr>
 <td style="text-align:left">page:firstPage</td>
-<td style="text-align:left">e.target：触发事件的节点</td>
+<td style="text-align:left">e.target：触发事件的节点[在第一页page:skip和page:firstPage会同时调用]</td>
 <td style="text-align:left">去第一页</td>
 </tr>
 <tr>
 <td style="text-align:left">page:lastPage</td>
-<td style="text-align:left">e.target：触发事件的节点</td>
+<td style="text-align:left">e.target：触发事件的节点[在最后一页page:skip和page:lastPage]</td>
 <td style="text-align:left">去最后一页</td>
 </tr>
 <tr>
